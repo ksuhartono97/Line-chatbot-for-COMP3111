@@ -12,6 +12,16 @@ public class SQLDatabaseEngine extends DatabaseEngine {
 	@Override
 	String search(String text) throws Exception {
 		//Write your code here
+//		String returnString = null;
+//		switch (text) {
+//		case "abc": 
+//			returnString = "def";
+//			break;
+//		case "ghi":
+//			returnString = "jkl";
+//			break;
+//		}
+//		return returnString;
 		return null;
 	}
 	

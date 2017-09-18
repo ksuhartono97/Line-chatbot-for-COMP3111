@@ -65,7 +65,7 @@ public class KitchenSinkTester {
 	@Test
 	public void testFound() throws Exception {
 		boolean thrown = false;
-		String result = "";
+		String result = null;
 		try {
 			result = this.databaseEngine.search("abc");
 		} catch (Exception e) {
@@ -78,7 +78,7 @@ public class KitchenSinkTester {
 	@Test
 	public void testAgain() throws Exception {
 		boolean thrown = false;
-		String result = "";
+		String result = null;
 		try {
 			result = this.databaseEngine.search("ghi");
 		} catch (Exception e) {
