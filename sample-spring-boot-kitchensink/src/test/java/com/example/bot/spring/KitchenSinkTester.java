@@ -80,11 +80,11 @@ public class KitchenSinkTester {
 		boolean thrown = false;
 		String result = null;
 		try {
-			result = this.databaseEngine.search("ghi");
+			result = this.databaseEngine.search("Did you know about abc");
 		} catch (Exception e) {
 			thrown = true;
 		}
 		assertThat(!thrown);
-		assertThat(result.equals("jkl"));
+		assertThat(result.equals("def"));
 	}
 }
