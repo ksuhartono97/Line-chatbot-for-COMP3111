@@ -80,6 +80,19 @@ public class KitchenSinkTester {
 		boolean thrown = false;
 		String result = null;
 		try {
+			result = this.databaseEngine.search("ghi");
+		} catch (Exception e) {
+			thrown = true;
+		}
+		assertThat(!thrown);
+		assertThat(result.equals("jkl"));
+	}
+	
+	@Test
+	public void testSpecial() throws Exception {
+		boolean thrown = false;
+		String result = null;
+		try {
 			result = this.databaseEngine.search("Did you know about abc");
 		} catch (Exception e) {
 			thrown = true;
