@@ -51,7 +51,10 @@ public class SQLDatabaseEngine extends DatabaseEngine {
 		
 		
 		connection.close();
-		return response;
+		
+		if (response != null)
+			return response;
+		throw new Exception("NOT FOUND");
 	}
 	
 	
