@@ -59,7 +59,7 @@ public class KitchenSinkTester {
 		} catch (Exception e) {
 			thrown = true;
 		}
-		assertThat(thrown);
+		assertThat(thrown).isEqualTo(true);
 	}
 	
 	@Test
@@ -71,8 +71,8 @@ public class KitchenSinkTester {
 		} catch (Exception e) {
 			thrown = true;
 		}
-		assertThat(!thrown);
-		assertThat(result.contains("def"));
+		assertThat(!thrown).isEqualTo(true);
+		assertThat(result.contains("def")).isEqualTo(true);
 	}
 	
 	@Test
@@ -84,8 +84,8 @@ public class KitchenSinkTester {
 		} catch (Exception e) {
 			thrown = true;
 		}
-		assertThat(!thrown);
-		assertThat(result.contains("Great!"));
+		assertThat(!thrown).isEqualTo(true);
+		assertThat(result.contains("Great!")).isEqualTo(true);
 	}
 	
 	@Test
@@ -97,7 +97,7 @@ public class KitchenSinkTester {
 		} catch (Exception e) {
 			thrown = true;
 		}
-		assertThat(!thrown);
-		assertThat(result.contains("def"));
+		assertThat(!thrown).isEqualTo(true);
+		assertThat(result.contains("def")).isEqualTo(true);
 	}
 }
