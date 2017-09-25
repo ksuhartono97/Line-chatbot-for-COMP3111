@@ -49,11 +49,13 @@ public class SQLDatabaseEngine extends DatabaseEngine {
 		
 		System.out.println("2." + response);
 		
-		
 		connection.close();
 		
-		if (response != null)
+		if (response != null) {
+			response += " ";
+			response += hits;
 			return response;
+		}
 		throw new Exception("NOT FOUND");
 	}
 	

@@ -72,7 +72,7 @@ public class KitchenSinkTester {
 			thrown = true;
 		}
 		assertThat(!thrown);
-		assertThat(result.equals("def"));
+		assertThat(result.contains("def"));
 	}
 	
 	@Test
@@ -85,7 +85,7 @@ public class KitchenSinkTester {
 			thrown = true;
 		}
 		assertThat(!thrown);
-		assertThat(result.equals("Great!"));
+		assertThat(result.contains("Great!"));
 	}
 	
 	@Test
@@ -98,6 +98,6 @@ public class KitchenSinkTester {
 			thrown = true;
 		}
 		assertThat(!thrown);
-		assertThat(result.equals("def"));
+		assertThat(result.contains("def"));
 	}
 }
