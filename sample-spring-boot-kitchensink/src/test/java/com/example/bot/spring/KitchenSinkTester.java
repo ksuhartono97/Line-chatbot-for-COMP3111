@@ -50,7 +50,7 @@ import com.example.bot.spring.DatabaseEngine;
 public class KitchenSinkTester {
 	@Autowired
 	private DatabaseEngine databaseEngine;
-	
+
 	@Test
 	public void testNotFound() throws Exception {
 		boolean thrown = false;
@@ -61,7 +61,7 @@ public class KitchenSinkTester {
 		}
 		assertThat(thrown).isEqualTo(true);
 	}
-	
+
 	@Test
 	public void testFound() throws Exception {
 		boolean thrown = false;
@@ -74,7 +74,7 @@ public class KitchenSinkTester {
 		assertThat(!thrown).isEqualTo(true);
 		assertThat(result.contains("def")).isEqualTo(true);
 	}
-	
+
 	@Test
 	public void testAgain() throws Exception {
 		boolean thrown = false;
@@ -87,7 +87,7 @@ public class KitchenSinkTester {
 		assertThat(!thrown).isEqualTo(true);
 		assertThat(result.contains("Great!")).isEqualTo(true);
 	}
-	
+
 	@Test
 	public void testSpecial() throws Exception {
 		boolean thrown = false;
