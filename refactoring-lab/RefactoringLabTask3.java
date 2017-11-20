@@ -56,6 +56,36 @@ class Transcript {
     public ClassResult[] classResults() { return classResults; }
 
     /**
+     * Processes a single ClassResult field.
+     *
+     * FIXME: This method isn't working! What's going on?!
+     */
+    private static void processClassResultField(
+            String field,
+            int currentLength,
+            int totalLines,
+            int width,
+            StringBuilder transcriptBuilder) {
+        if (currentLength + 1 + field.length() > width) {
+            totalLines++;
+            if (transcriptBuilder != null) {
+                transcriptBuilder.append("\n    ");
+            }
+            currentLength = 4;
+        } else {
+            if (transcriptBuilder != null) {
+                transcriptBuilder.append(" ");
+            }
+            currentLength++;
+        }
+
+        if (transcriptBuilder != null) {
+          transcriptBuilder.append(field);
+        }
+        currentLength += field.length();
+    }
+
+    /**
      * Prints the transcript to stdout.
      *
      * We design the transcript with the following format:
@@ -111,42 +141,18 @@ class Transcript {
             int currentLength = result.classCode().length();
             transcriptBuilder.append(result.classCode());
 
-            // We add 1 to account for the space between the two fields, if on the same line.
-            if (currentLength + 1 + result.className().length() > width) {
-                // The current length is 4 because of the spaces added for indentation.
-                transcriptBuilder.append("\n    ");
-                currentLength = 4;
-            } else {
-                transcriptBuilder.append(" ");
-                currentLength++;
-            }
-
-            transcriptBuilder.append(result.className());
-            currentLength += result.className().length();
+            // Since totalLines doesn't matter here, we just set it to 0.
+            int totalLines = 0;
+            processClassResultField(
+                    result.className(), currentLength, totalLines, width, transcriptBuilder);
 
             String gradePointsString = String.format("%.2f", result.gradePoints());
-            if (currentLength + 1 + gradePointsString.length() > width) {
-                transcriptBuilder.append("\n    ");
-                currentLength = 4;
-            } else {
-                transcriptBuilder.append(" ");
-                currentLength++;
-            }
-
-            transcriptBuilder.append(gradePointsString);
-            currentLength += gradePointsString.length();
+            processClassResultField(
+                    gradePointsString, currentLength, totalLines, width, transcriptBuilder);
 
             String creditsString = String.format("%d", result.credits());
-            if (currentLength + 1 + creditsString.length() > width) {
-                transcriptBuilder.append("\n    ");
-                currentLength = 4;
-            } else {
-                transcriptBuilder.append(" ");
-                currentLength++;
-            }
-
-            transcriptBuilder.append(creditsString);
-            currentLength += creditsString.length();
+            processClassResultField(
+                    creditsString, currentLength, totalLines, width, transcriptBuilder);
 
             transcriptBuilder.append("\n");
         }
@@ -175,37 +181,17 @@ class Transcript {
 
         for (ClassResult result : classResults) {
             int currentLength = result.classCode().length();
-            if (currentLength + 1 + result.className().length() > width) {
-                totalLines++;
-
-                // The current length is 4 after a newline is emitted to account for the
-                // indentation on the new line.
-                currentLength = 4;
-            } else {
-                currentLength++;
-            }
-
-            currentLength += result.className().length();
+            processClassResultField(
+                    result.className(), currentLength, totalLines, width, null);
 
             String gradePointsString = String.format("%.2f", result.gradePoints());
-            if (currentLength + 1 + gradePointsString.length() > width) {
-                totalLines++;
-                currentLength = 4;
-            } else {
-                currentLength++;
-            }
-
-            currentLength += gradePointsString.length();
+            processClassResultField(
+                    gradePointsString, currentLength, totalLines, width, null);
 
             String creditsString = String.format("%d", result.credits());
-            if (currentLength + 1 + creditsString.length() > width) {
-                totalLines++;
-                currentLength = 4;
-            } else {
-                currentLength++;
-            }
+            processClassResultField(
+                    creditsString, currentLength, totalLines, width, null);
 
-            currentLength += creditsString.length();
             totalLines++;
         }
 
@@ -214,9 +200,10 @@ class Transcript {
         totalLines += 2;
         return totalLines;
     }
+
 }
 
-public class RefactoringLab {
+public class RefactoringLabTask3 {
     public static void main(String[] args) {
         ClassResult[] classResults = new ClassResult[] {
             new ClassResult("COMP3111", "Software Engineering", 4.0, 4),

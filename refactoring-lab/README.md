@@ -66,7 +66,15 @@ suggesting simple ways to fix these problems. For example, pulling out
 literals as member variables or blocks of code as methods can be excellent
 ways to improve your code.
 
+**Do not change the API. The goal of refactoring is to make changes to the
+_internal_ structure without affecting the _external_ behavior. So, your clients
+should be able to call `transcriptHeightForWidth` with a width and have a height
+returned to them; or call `generateTranscriptForWidth` with a width and have
+the transcript be printed out.**
+
 ### Task 1: Use dashes ("-") instead of spaces (" ") to center-align the header
+
+*For this task, make changes to [`RefactoringLab.java`](RefactoringLab.java).*
 
 ```
 -----John Chan------
@@ -90,6 +98,8 @@ referred to as "code smells").
 
 ### Task 2: Use 2 spaces for indentations, instead of 4.
 
+*For this task, make changes to [`RefactoringLab.java`](RefactoringLab.java).*
+
 ```
 -----John Chan------
 ------21039408------
@@ -109,14 +119,65 @@ Semester GPA: 3.70
 *   What code smells did you encounter here?
 *   Propose and implement a fix to the problem. Why is it better?
 
-### Task 3: Consolidate the `transcriptHeightForWidth` and `generateTranscriptforWidth` methods
+### Task 3: Fix the `processClassResultField` method
 
-As one might expect, the `transcriptHeightForWidth` and
-`generateTranscriptForWidth` classes are structurally similar - after all,
-they're describing the same transcript structure.
+*For this task, make changes to
+[`RefactoringLabTask3.java`](RefactoringLabTask3.java). You do not need to make
+the changes from the previous two tasks in this file.*
 
-*   Propose and implement some changes that consolidate or improve code
-reuse between the two methods. What are some advantages and
-disadvantages to your approach?
-*   Bonus: are there any design patterns that *make sense* with respect to
-consolidating these two methods?
+A teammate notices that the structure of the `transcriptHeightForWidth` methods
+and `generateTranscriptForWidth` methods are quite similar. Specifically, the
+logic to indent the transcript body is more or less the same.
+
+He decides to use some refactoring tools to extract this logic out into a
+separate, `static` method, `processClassResultField`, which aims to update all
+of `currentLine`, `totalLine`, and `transcriptBuilder`. However, he finds that
+his method doesn't seem to work. Find out why this is, and suggest a fix.
+
+Tip: you might find the
+[parameter object](https://refactoring.guru/introduce-parameter-object)
+technique useful.
+
+## Advice
+
+*   When defining helper method, consider defining them as `private` rather
+    than `public` to avoid polluting the public interface.
+
+    ```java
+    class SomeExampleClass {
+      // DANGER: Now, clients of your class can invoke your helper method even
+      // if it's performing some complicated, intermediate step!
+      public void someHelperMethod() { ... }
+
+      // BETTER: Instead, it's safer to keep these helpers private so that they
+      // can only be called within the class.
+      private void someHelperMethod() { ... }
+    }
+    ```
+
+*   When a helper method doesn't refer to any member variables, it may be worth
+    making them `static` methods. This helps to clarify that the helper method
+    does not affect any of the class' state.
+
+    ```java
+    class SomeExampleClass {
+      // AMBIGUOUS: Not entirely clear to a user if the method will modify the
+      // internal state of the class.
+      private void addValues(int a, int b) { return a + b; }
+
+      // BETTER: Now, it's clear that none of the member variables will be
+      // touched because the method is static.
+      private static void addValues(int a, int b) { return a + b; }
+    }
+    ```
+
+*   When pulling out constants, consider declaring them `final` to stress that
+    the value will never be changed. Changing their name to be all-caps will
+    also help distinguish these from other fields.
+
+    ```java
+    class SomeExampleClass {
+      // GOOD: All-caps clarifies that the field is a constant.
+      public static final double PI = 3.14159;
+    }
+    ```

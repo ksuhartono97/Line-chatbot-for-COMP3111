@@ -23,8 +23,9 @@ You need to have some backgrounds on Java/Database/git in order to complete the 
 |     | 5    | No lab at week 5 | |
 | 4   | 6    | [UML](./lab_UML.pdf) | [Solution](./uml_lab_sample_answer.pdf) |
 |     | 7    | No lab at week 7 | |
-| 5   | 8    | [Design Pattern](./lab6/lab_design_pattern.pdf) |
-| 6   | 9    | [Refactoring](./refactoring-lab/README.md) |
+| 5   | 8    | [Design Pattern](./lab6/lab_design_pattern.pdf) | |
+| 6   | 9    | [Refactoring](./refactoring-lab/README.md) | [Solution](./refactoring-lab/solution.md) |
+| 7   | 11   | [javadoc](./lab7-JavaDoc) | |
 
 
 # How does the Lab works
